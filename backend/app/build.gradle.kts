@@ -8,6 +8,8 @@
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.9.0"
+    id("io.ktor.plugin") version "2.3.5"
+
 
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -19,16 +21,25 @@ repositories {
 }
 
 dependencies {
+    val ktor_version = "2.3.5"
+    val logback_version = "1.4.11"
+    val slf4j_version = "2.0.9"
+
     // Use the Kotlin JUnit 5 integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 
     // Use the JUnit 5 integration.
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.3")
 
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
+    implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
+    implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
+    testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
 
-    // This dependency is used by the application.
-    implementation("com.google.guava:guava:32.1.1-jre")
+    implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("org.slf4j:slf4j-api:$slf4j_version")
+
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -46,4 +57,10 @@ application {
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("fat.jar")
+    }
 }

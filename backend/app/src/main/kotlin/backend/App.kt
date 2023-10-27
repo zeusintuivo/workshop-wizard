@@ -3,13 +3,20 @@
  */
 package backend
 
-class App {
-    val greeting: String
-        get() {
-            return "Hello World!"
+import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+
+fun server() = embeddedServer(factory = Netty, port = 8080) {
+    routing {
+        get {
+            call.respondText("Hello, world!")
         }
+    }
 }
 
 fun main() {
-    println(App().greeting)
+    server().start(wait = true)
 }
