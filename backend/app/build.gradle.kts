@@ -9,6 +9,7 @@ plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.9.0"
     id("io.ktor.plugin") version "2.3.5"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0"
 
 
     // Apply the application plugin to add support for building a CLI application in Java.
@@ -24,6 +25,7 @@ dependencies {
     val ktor_version = "2.3.5"
     val logback_version = "1.4.11"
     val slf4j_version = "2.0.9"
+    val kotlin_version = "1.9.0"
 
     // Use the Kotlin JUnit 5 integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
@@ -39,7 +41,14 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("org.slf4j:slf4j-api:$slf4j_version")
 
+    // Serialization
+    implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 
+    // Kotlin Query
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    implementation("com.github.seratch:kotliquery:1.9.0")
+    implementation("com.h2database:h2:2.1.214")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

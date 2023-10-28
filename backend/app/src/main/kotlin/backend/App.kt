@@ -3,13 +3,26 @@
  */
 package backend
 
+import backend.user.configureUserRoutes
+import backend.user.userRoutes
+import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun server() = embeddedServer(factory = Netty, port = 8080) {
+    configureRouting()
+}
+
+
+fun Application.configureRouting() {
+    install(ContentNegotiation) {
+        json()
+    }
+    configureUserRoutes()
     routing {
         get {
             call.respondText("Hello, world!")
