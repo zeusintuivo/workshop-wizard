@@ -5,13 +5,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 
-fun Application.configureAdminRoutes() {
-    routing {
-        adminRoutes(AdminRepository())
-    }
-}
-
-fun Routing.adminRoutes(adminRepository: backend.admin.AdminRepository) {
+fun Routing.adminRoutes(adminRepository: AdminRepository) {
     get("/admin/workshop") {
         call.respond(adminRepository.getWorkshops())
     }
