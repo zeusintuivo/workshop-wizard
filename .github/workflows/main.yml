@@ -2,8 +2,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - backend
 jobs:
-  build:
+  build-backend:
+    defaults:
+      run:
+        working-directory: backend
     name: Build the application
     runs-on: ubuntu-22.04
     concurrency:
