@@ -1,21 +1,11 @@
 package backend.user
 
+import backend.domain.RegistrationState
+import backend.domain.User
+import backend.domain.WorkShopRegistration
+import backend.domain.Workshop
 import kotlinx.serialization.*
 import java.lang.RuntimeException
-
-
-@Serializable
-class User(val id: Int, val firstName: String, val lastName: String, val email: String)
-
-enum class RegistrationState {
-    PENDING, WAITLIST, APPROVED, CANCELED,
-
-}
-
-@Serializable
-class WorkShopRegistration(val id: Int, val userId: Int, val workshopId: Int, var state: RegistrationState = RegistrationState.PENDING)
-@Serializable
-class Workshop(val id: Int, val title: String, val teacherName: String)
 
 class Repository {
     var userMap = mutableMapOf<Int, User>(
@@ -37,9 +27,9 @@ class Repository {
         3 to Workshop(3, "Kotlin Multiplatform", "John Doe")
     )
 
-    fun getWorkShopRegistrations(userId: Int) : List<Workshop> {
+    fun getWorkShopRegistrations(userId: Int) : List<WorkshopDTO> {
         val workshopIds = registrationMap.filter { it.value.userId == userId && it.value.state == RegistrationState.APPROVED }.map { it.value.workshopId }
-        return workshopMap.filter { workshopIds.contains(it.key) }.values.toList()
+        return workshopMap.filter { workshopIds.contains(it.key) }.values.map { WorkshopDTO(it.title, it.teacherName) }
     }
 
     fun addWorkshopRegistrations(userId: Int, workshopId: Int) {

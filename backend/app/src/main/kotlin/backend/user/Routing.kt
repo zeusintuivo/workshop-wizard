@@ -1,9 +1,10 @@
 package backend.user
 
+import backend.CustomPrincipal
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-
 
 
 fun Application.configureUserRoutes() {
@@ -13,22 +14,27 @@ fun Application.configureUserRoutes() {
 }
 
 fun Routing.userRoutes(userRepository: Repository) {
-    get("/user/workshop") {
-        // Should be based on the logged in user
-        call.respond(userRepository.getWorkShopRegistrations(1))
-    }
-
-    post("/user/workshop/{workshopId}") {
-        try {
-            userRepository.addWorkshopRegistrations(1, call.parameters["workshopId"]!!.toInt())
-            call.respondText("Workshop added")
-        } catch (e: Exception) {
-            call.respondText("Workshop not found", status = io.ktor.http.HttpStatusCode.NotFound)
+    authenticate ("basic") {
+        get("/user/workshop") {
+            // Should be based on the logged in user
+            val userId = call.authentication.principal<CustomPrincipal>()?.userId!!
+            call.respond(userRepository.getWorkShopRegistrations(userId))
         }
-    }
 
-    put("/user/workshop/{workshopId}/cancel") {
-        userRepository.cancelWorkshopRegistration(1, call.parameters["workshopId"]!!.toInt())
-        call.respondText("Workshop cancelled")
+        post("/user/workshop/{workshopId}") {
+            try {
+                val userId = call.authentication.principal<CustomPrincipal>()?.userId!!
+                userRepository.addWorkshopRegistrations(userId, call.parameters["workshopId"]!!.toInt())
+                call.respondText("Workshop added")
+            } catch (e: Exception) {
+                call.respondText("Workshop not found", status = io.ktor.http.HttpStatusCode.NotFound)
+            }
+        }
+
+        put("/user/workshop/{workshopId}/cancel") {
+            val userId = call.authentication.principal<CustomPrincipal>()?.userId!!
+            userRepository.cancelWorkshopRegistration(userId, call.parameters["workshopId"]!!.toInt())
+            call.respondText("Workshop cancelled")
+        }
     }
 }

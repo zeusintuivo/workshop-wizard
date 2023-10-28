@@ -43,6 +43,10 @@ dependencies {
     runtimeOnly("org.slf4j:slf4j-api:$slf4j_version")
     runtimeOnly("net.logstash.logback:logstash-logback-encoder:$logstash_version")
 
+    // Auth
+    implementation("io.ktor:ktor-server-auth:$ktor_version")
+
+
     // Serialization
     implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
