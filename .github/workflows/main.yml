@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - main
-
 jobs:
   build:
     name: Build the application
@@ -12,9 +11,4 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v4
-
-      - name: Pin images
-        uses: docker://ghcr.io/sethvargo/ratchet:0.4.0
-        with:
-          args: pin .github/workflows/main.yml
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # ratchet:actions/checkout@v4
