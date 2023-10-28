@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+    implementation("io.ktor:ktor-server-auth-jvm:2.3.5")
     val ktor_version = "2.3.5"
     val logback_version = "1.4.11"
     val slf4j_version = "2.0.9"
@@ -42,6 +43,10 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic:$logback_version")
     runtimeOnly("org.slf4j:slf4j-api:$slf4j_version")
     runtimeOnly("net.logstash.logback:logstash-logback-encoder:$logstash_version")
+
+    // Auth
+    implementation("io.ktor:ktor-server-auth:$ktor_version")
+
 
     // Serialization
     implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")

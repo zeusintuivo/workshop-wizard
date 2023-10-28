@@ -1,7 +1,8 @@
 package backend.workshop
 
+import backend.domain.Workshop
 
-class Workshop(val id: Int, val title: String, val teacherName: String) {}
+
 class Repository {
     var map = mutableMapOf<Int, Workshop>(
         1 to Workshop(1, "Kotlin", "John Doe"),
