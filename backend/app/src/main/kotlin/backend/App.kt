@@ -3,6 +3,7 @@
  */
 package backend
 
+import backend.admin.configureAdminRoutes
 import backend.user.configureUserRoutes
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -42,6 +43,7 @@ fun Application.configureRouting() {
         json()
     }
     configureUserRoutes()
+    configureAdminRoutes()
     routing {
         get {
             call.respondText("Hello, world!")
