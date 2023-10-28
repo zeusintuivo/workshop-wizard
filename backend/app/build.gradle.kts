@@ -24,6 +24,7 @@ dependencies {
     val ktor_version = "2.3.5"
     val logback_version = "1.4.11"
     val slf4j_version = "2.0.9"
+    val logstash_version = "7.4"
 
     // Use the Kotlin JUnit 5 integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
@@ -36,8 +37,9 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
     testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
 
-    implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation("org.slf4j:slf4j-api:$slf4j_version")
+    runtimeOnly("ch.qos.logback:logback-classic:$logback_version")
+    runtimeOnly("org.slf4j:slf4j-api:$slf4j_version")
+    runtimeOnly("net.logstash.logback:logstash-logback-encoder:$logstash_version")
 
 
 }
