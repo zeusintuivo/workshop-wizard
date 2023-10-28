@@ -3,7 +3,8 @@
  */
 package backend
 
-import backend.user.configureUserRoutes
+import backend.admin.adminRoutes
+import backend.user.Repository
 import backend.user.userRoutes
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -19,14 +20,29 @@ fun server() = embeddedServer(factory = Netty, port = 8080) {
 
 
 fun Application.configureRouting() {
+    val userRepository = Repository()
+
     install(ContentNegotiation) {
         json()
     }
-    configureUserRoutes()
     routing {
+        userRoutes(userRepository)
+        adminRoutes()
+        healthz()
+
         get {
             call.respondText("Hello, world!")
         }
+    }
+}
+
+private fun Routing.healthz() {
+    get("readiness") {
+        call.respondText("READY!")
+    }
+
+    get("liveness") {
+        call.respondText("ALIVE!")
     }
 }
 
