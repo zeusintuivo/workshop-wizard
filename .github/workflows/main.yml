@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0 # ratchet:actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 21
           cache: gradle
       - name: Run gradle build
         run: ./gradlew build --no-daemon

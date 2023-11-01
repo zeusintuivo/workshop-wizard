@@ -7,9 +7,9 @@
 
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.9.0"
+    id("org.jetbrains.kotlin.jvm") version "1.9.20"
     id("io.ktor.plugin") version "2.3.5"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.20"
 
 
     // Apply the application plugin to add support for building a CLI application in Java.
@@ -26,7 +26,7 @@ dependencies {
     val ktor_version = "2.3.5"
     val logback_version = "1.4.11"
     val slf4j_version = "2.0.9"
-    val kotlin_version = "1.9.0"
+    val kotlin_version = "1.9.20"
     val logstash_version = "7.4"
 
     // Use the Kotlin JUnit 5 integration.
@@ -55,13 +55,12 @@ dependencies {
     // Kotlin Query
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     implementation("com.github.seratch:kotliquery:1.9.0")
-    implementation("com.h2database:h2:2.1.214")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17)) // Cannot use 17 yet because of https://github.com/gradle/gradle/issues/25574
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
