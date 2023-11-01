@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-auth-jvm:2.3.5")
+    implementation("io.ktor:ktor-server-sessions-jvm:2.3.5")
     val ktor_version = "2.3.5"
     val logback_version = "1.4.11"
     val slf4j_version = "2.0.9"
@@ -46,6 +46,8 @@ dependencies {
 
     // Auth
     implementation("io.ktor:ktor-server-auth:$ktor_version")
+    implementation("io.ktor:ktor-server-auth-jvm:2.3.5")
+    implementation("io.ktor:ktor-server-sessions:$ktor_version")
 
 
     // Serialization
