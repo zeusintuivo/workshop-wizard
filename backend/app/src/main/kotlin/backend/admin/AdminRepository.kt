@@ -6,20 +6,20 @@ import backend.domain.WorkShopRegistration
 import backend.domain.Workshop
 
 class AdminRepository {
-    var userMap = mutableMapOf<Int, User>(
+    val userMap = mutableMapOf(
         1 to User(1, "John", "Doe", "john.doe@example.com"),
         2 to User(2, "Jane", "Doe", "jane.doe@example.com"),
         3 to User(3, "John", "Smith", "john.smith@example.com",)
     )
 
-    var registrationMap = mutableMapOf<Int, WorkShopRegistration>(
+    val registrationMap = mutableMapOf(
         1 to WorkShopRegistration(1,1, 1, RegistrationState.APPROVED),
         2 to WorkShopRegistration(2, 1, 2, RegistrationState.APPROVED),
         3 to WorkShopRegistration(3, 2, 1, RegistrationState.APPROVED),
         4 to WorkShopRegistration(4,3, 3, RegistrationState.APPROVED)
     )
 
-    var workshopMap = mutableMapOf<Int, Workshop>(
+    val workshopMap = mutableMapOf(
         1 to Workshop(1, "Kotlin", "John Doe"),
         2 to Workshop(2, "Ktor", "Jane Doe"),
         3 to Workshop(3, "Kotlin Multiplatform", "John Doe")
