@@ -46,7 +46,7 @@ dependencies {
 
     // Auth
     implementation("io.ktor:ktor-server-auth:$ktor_version")
-    implementation("io.ktor:ktor-server-auth-jvm:2.3.5")
+    implementation("io.ktor:ktor-server-auth-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-sessions:$ktor_version")
 
 
