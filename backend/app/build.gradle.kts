@@ -22,8 +22,8 @@ repositories {
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-sessions-jvm:2.3.5")
-    val ktor_version = "2.3.5"
+    implementation("io.ktor:ktor-server-sessions-jvm:2.3.6")
+    val ktor_version = "2.3.6"
     val logback_version = "1.4.11"
     val slf4j_version = "2.0.9"
     val kotlin_version = "1.9.20"
