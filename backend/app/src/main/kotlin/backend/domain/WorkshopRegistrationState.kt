@@ -1,7 +1,7 @@
 package backend.domain
 
 
-enum class RegistrationState {
+enum class WorkshopRegistrationState {
     PENDING, WAITLIST, APPROVED, CANCELED,
 }
 

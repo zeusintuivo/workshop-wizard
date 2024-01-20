@@ -1,46 +1,87 @@
 package backend.user
 
-import backend.domain.RegistrationState
 import backend.domain.User
-import backend.domain.WorkShopRegistration
 import backend.domain.Workshop
-import java.lang.RuntimeException
+import backend.domain.WorkshopRegistration
+import backend.domain.WorkshopRegistrationState
 
-class UserRepository {
-    var userMap = mutableMapOf<Int, User>(
-        1 to User(1, "John", "Doe", "john.doe@example.com"),
-        2 to User(2, "Jane", "Doe", "jane.doe@example.com"),
-        3 to User(3, "John", "Smith", "john.smith@example.com",)
-    )
+class UserRepository(
+    var userMap: MutableMap<Int, User> =
+        mutableMapOf(
+            1 to backend.admin.user1,
+            2 to backend.admin.user2,
+            3 to backend.admin.user3,
+        ),
+    var registrationMap: MutableMap<Int, WorkshopRegistration> =
 
-    var registrationMap = mutableMapOf<Int, WorkShopRegistration>(
-        1 to WorkShopRegistration(1,1, 1, RegistrationState.APPROVED),
-        2 to WorkShopRegistration(2, 1, 2, RegistrationState.APPROVED),
-        3 to WorkShopRegistration(3, 2, 1, RegistrationState.APPROVED),
-        4 to WorkShopRegistration(4,3, 3, RegistrationState.APPROVED)
-    )
+        mutableMapOf(
+            1 to
+                WorkshopRegistration(
+                    1,
+                    backend.admin.user1,
+                    backend.admin.workshop1,
+                    WorkshopRegistrationState.APPROVED,
+                ),
+            2 to
+                WorkshopRegistration(
+                    2,
+                    backend.admin.user1,
+                    backend.admin.workshop2,
+                    WorkshopRegistrationState.APPROVED,
+                ),
+            3 to
+                WorkshopRegistration(
+                    3,
+                    backend.admin.user2,
+                    backend.admin.workshop1,
+                    WorkshopRegistrationState.APPROVED,
+                ),
+            4 to
+                WorkshopRegistration(
+                    4,
+                    backend.admin.user3,
+                    backend.admin.workshop3,
+                    WorkshopRegistrationState.APPROVED,
+                ),
+        ),
+    var workshopMap: MutableMap<Int, Workshop> =
 
-    var workshopMap = mutableMapOf<Int, Workshop>(
-        1 to Workshop(1, "Kotlin", "John Doe"),
-        2 to Workshop(2, "Ktor", "Jane Doe"),
-        3 to Workshop(3, "Kotlin Multiplatform", "John Doe")
-    )
-
-    fun getWorkShopRegistrations(userId: Int) : List<WorkshopDTO> {
-        val workshopIds = registrationMap.filter { it.value.userId == userId && it.value.state == RegistrationState.APPROVED }.map { it.value.workshopId }
-        return workshopMap.filter { workshopIds.contains(it.key) }.values.map { WorkshopDTO(it.title, it.teacherName) }
+        mutableMapOf(
+            1 to backend.admin.workshop1,
+            2 to backend.admin.workshop2,
+            3 to backend.admin.workshop3,
+        ),
+) {
+    fun getWorkShopRegistrations(userId: Int): List<WorkshopRegistration> {
+        return registrationMap.filter {
+            it.value.user.id == userId
+        }.values.toList()
     }
 
-    fun addWorkshopRegistrations(userId: Int, workshopId: Int) {
+    fun addWorkshopRegistrations(
+        userId: Int,
+        workshopId: Int,
+    ) {
         workshopMap.get(workshopId) ?: throw RuntimeException("Workshop does not exist")
         val maxId = registrationMap.keys.max() + 1
-        registrationMap.put(maxId, WorkShopRegistration(maxId, userId, workshopId, RegistrationState.PENDING))
+        registrationMap.put(
+            maxId,
+            WorkshopRegistration(
+                maxId,
+                userMap[userId]!!,
+                workshopMap[workshopId]!!,
+                WorkshopRegistrationState.PENDING,
+            ),
+        )
     }
 
-    fun cancelWorkshopRegistration(uesrId: Int, workshopId: Int) {
-        val registration = registrationMap.filter { it.value.userId == uesrId && it.value.workshopId == workshopId }
-            .values.firstOrNull() ?: throw RuntimeException("Workshop registration does not exist")
-        registration.state = RegistrationState.CANCELED
+    fun cancelWorkshopRegistration(
+        uesrId: Int,
+        workshopId: Int,
+    ) {
+        val registration =
+            registrationMap.filter { it.value.user.id == uesrId && it.value.workshop.id == workshopId }
+                .values.firstOrNull() ?: throw RuntimeException("Workshop registration does not exist")
+        registration.state = WorkshopRegistrationState.CANCELED
     }
-
 }
