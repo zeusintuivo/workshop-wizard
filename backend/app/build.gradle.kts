@@ -28,6 +28,9 @@ dependencies {
     val slf4j_version = "2.0.9"
     val kotlin_version = "1.9.20"
     val logstash_version = "7.4"
+    val flyway_version = "10.6.0"
+    val hikari_version = "5.1.0"
+    val postgres_version = "42.7.1"
 
     // Use the Kotlin JUnit 5 integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
@@ -57,6 +60,16 @@ dependencies {
     // Kotlin Query
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     implementation("com.github.seratch:kotliquery:1.9.0")
+
+
+    // Database
+    // https://mvnrepository.com/artifact/org.flywaydb/flyway-core - database migrations
+    implementation("org.flywaydb:flyway-core:$flyway_version")
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP - connection pooling
+    implementation("com.zaxxer:HikariCP:$hikari_version")
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql - database driver
+    implementation("org.postgresql:postgresql:$postgres_version")
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
