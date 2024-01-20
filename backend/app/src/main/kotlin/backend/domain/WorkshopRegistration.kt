@@ -2,7 +2,7 @@ package backend.domain
 
 class WorkshopRegistration(
     val id: Int,
-    val userId: Int,
-    val workshopId: Int,
+    val user: User,
+    val workshop: Workshop,
     var state: WorkshopRegistrationState = WorkshopRegistrationState.PENDING,
 )

@@ -4,6 +4,7 @@ import Fixtures
 import backend.domain.User
 import backend.domain.Workshop
 import backend.domain.WorkshopRegistration
+import backend.domain.WorkshopRegistrationState
 import backend.user.UserRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -44,7 +45,6 @@ class ViewRegisteredWorkshopsTest {
         val workshops = viewRegisteredWorkshops.viewRegisteredWorkshops(1)
 
         assertEquals(1, workshops.size)
-        assertEquals(Fixtures.WORKSHOP_1_KOTLIN_WITH_KARI.title, workshops[0].title)
-        assertEquals(Fixtures.WORKSHOP_1_KOTLIN_WITH_KARI.teacherName, workshops[0].teacherName)
+        assertEquals(WorkshopRegistrationState.APPROVED, workshops[0].state)
     }
 }
