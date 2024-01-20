@@ -18,6 +18,7 @@ fun server() = embeddedServer(factory = Netty, port = 8080) {
 }
 
 private fun Application.createServer() {
+    runMigration()
     configureAuth()
     configureRouting()
 }
