@@ -65,6 +65,8 @@ dependencies {
     // Database
     // https://mvnrepository.com/artifact/org.flywaydb/flyway-core - database migrations
     implementation("org.flywaydb:flyway-core:$flyway_version")
+    implementation("org.flywaydb:flyway-database-postgresql:$flyway_version")
+
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP - connection pooling
     implementation("com.zaxxer:HikariCP:$hikari_version")
     // https://mvnrepository.com/artifact/org.postgresql/postgresql - database driver
