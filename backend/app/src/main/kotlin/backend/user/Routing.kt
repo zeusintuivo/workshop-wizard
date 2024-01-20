@@ -1,17 +1,19 @@
 package backend.user
 
 import backend.CustomPrincipal
+import backend.ViewRegisteredWorkshops
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Routing.userRoutes(userRepository: UserRepository) {
-    authenticate ("basic") {
+    authenticate("basic") {
         get("/user/workshop") {
             // Should be based on the logged in user
             val userId = call.authentication.principal<CustomPrincipal>()?.userId!!
-            call.respond(userRepository.getWorkShopRegistrations(userId))
+            val workshops = ViewRegisteredWorkshops(userRepository).viewRegisteredWorkshops(userId)
+            call.respond(workshops)
         }
 
         post("/user/workshop/{workshopId}") {
