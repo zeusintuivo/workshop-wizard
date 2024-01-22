@@ -23,6 +23,8 @@ repositories {
 
 dependencies {
     implementation("io.ktor:ktor-server-sessions-jvm:2.3.6")
+    testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.6")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.20")
     val ktor_version = "2.3.6"
     val logback_version = "1.4.11"
     val slf4j_version = "2.0.9"
@@ -34,6 +36,8 @@ dependencies {
 
     // Use the Kotlin JUnit 5 integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation("org.mockito:mockito-core:4.0.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0") // Use the latest version
 
     // Use the JUnit 5 integration.
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.3")
